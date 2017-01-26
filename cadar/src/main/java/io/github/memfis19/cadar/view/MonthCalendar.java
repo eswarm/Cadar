@@ -301,6 +301,7 @@ public class MonthCalendar extends LinearLayout implements ViewPager.OnPageChang
     @Override
     public void onPageSelected(int position) {
         this.currentPosition = position;
+        checkMonth();
     }
 
     @Override
@@ -311,7 +312,6 @@ public class MonthCalendar extends LinearLayout implements ViewPager.OnPageChang
             ScrollManager.getInstance().notifyScrollStateChanged(ScrollManager.SCROLL_STATE_SETTLING);
         } else if (state == ViewPager.SCROLL_STATE_IDLE) {
             ScrollManager.getInstance().notifyScrollStateChanged(ScrollManager.SCROLL_STATE_IDLE);
-            checkMonth();
         }
     }
 
