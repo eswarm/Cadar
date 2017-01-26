@@ -24,10 +24,10 @@ public class MonthHandlerThread extends HandlerThread {
 
     private static final int NUM_OF_DAYS_IN_WEEK = 7;
 
-    public class MonthInfoDto {
-        private Calendar calendar;
-        private Integer shiftValue;
-        private RecyclerView recyclerView;
+    public static class MonthInfoDto {
+        public Calendar calendar;
+        public Integer shiftValue;
+        public RecyclerView recyclerView;
 
         public MonthInfoDto(Calendar calendar, Integer shiftValue, RecyclerView recyclerView) {
             this.calendar = calendar;

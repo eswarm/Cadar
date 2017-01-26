@@ -196,6 +196,16 @@ public class MonthCalendar extends LinearLayout implements ViewPager.OnPageChang
         ScrollManager.getInstance().subscribeForScrollStateChanged(this);
     }
 
+    public void moveToNextMonth(boolean smoothScroll) {
+        int currentMonth = monthGridView.getCurrentItem();
+        monthGridView.setCurrentItem(currentMonth + 1, smoothScroll);
+    }
+
+    public void moveToPreviousMonth(boolean smoothScroll) {
+        int currentMonth = monthGridView.getCurrentItem();
+        monthGridView.setCurrentItem(currentMonth - 1, smoothScroll);
+    }
+
     private void initHeaderItem(final ViewGroup headerItem, int position) {
         int correctPosition = (position > 7) ? (position % 7) : position;
         View headerView = null;

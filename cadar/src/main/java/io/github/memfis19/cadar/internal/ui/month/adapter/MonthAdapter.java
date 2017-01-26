@@ -34,6 +34,7 @@ public class MonthAdapter extends PagerAdapter implements OnDayChangeListener,
 
     private final static int MAX_YEARS_BEFORE_CURRENT = 1;
     private final static int CAPACITY = 11;
+    private static final int NUM_OF_DAYS_IN_WEEK = 7;
 
     private Context context;
     private LayoutInflater inflater;
@@ -127,7 +128,16 @@ public class MonthAdapter extends PagerAdapter implements OnDayChangeListener,
 
         int shiftValue = position - getInitialPosition(initialDate);
 
-        monthHandlerThread.queuePreparation(initialDate, shiftValue, recyclerView);
+        MonthHandlerThread.MonthInfoDto monthInfoDto = new MonthHandlerThread.MonthInfoDto(initialDate, shiftValue, recyclerView);
+        final Calendar month = (Calendar) monthInfoDto.calendar.clone();
+        month.add(Calendar.MONTH, monthInfoDto.shiftValue);
+
+        month.set(Calendar.DAY_OF_MONTH, 1);
+        final List<Calendar> monthDays = prepare(month);
+
+        onReadyAdapter(month, monthDays, monthInfoDto.recyclerView);
+
+//        monthHandlerThread.queuePreparation(initialDate, shiftValue, recyclerView);
 
         collection.addView(recyclerView);
         return recyclerView;
@@ -195,5 +205,33 @@ public class MonthAdapter extends PagerAdapter implements OnDayChangeListener,
         recyclerView.setAdapter(monthGridAdapter);
 
         monthGridAdapter.requestDisplayEvents();
+    }
+
+    private List<Calendar> prepare(Calendar monthCalendar) {
+
+        List<Calendar> monthDays = new ArrayList<>();
+        Calendar iterator = (Calendar) monthCalendar.clone();
+
+        int month = iterator.get(Calendar.MONTH);
+        int lastDay = iterator.getActualMaximum(Calendar.DATE);
+
+        iterator.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+        if (iterator.get(Calendar.MONTH) == month && iterator.get(Calendar.DATE) > 1) {
+            iterator.add(Calendar.DATE, -7);
+        }
+
+        boolean finish = false;
+        while (!finish) {
+
+            for (int i = 0; i < NUM_OF_DAYS_IN_WEEK; i++) {
+                if (month == iterator.get(Calendar.MONTH) && lastDay == iterator.get(Calendar.DATE)) {
+                    finish = true;
+                }
+                monthDays.add((Calendar) iterator.clone());
+                iterator.add(Calendar.DATE, 1);
+            }
+        }
+
+        return monthDays;
     }
 }
