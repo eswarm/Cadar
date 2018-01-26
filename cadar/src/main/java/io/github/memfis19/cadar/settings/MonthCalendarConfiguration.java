@@ -17,6 +17,8 @@ import io.github.memfis19.cadar.internal.ui.month.adapter.decorator.factory.Mont
  */
 public final class MonthCalendarConfiguration extends BaseCalendarConfiguration {
 
+    public static final int NONE = -1;
+
     @CadarSettings.DayOfWeeks
     private int firstDayOfWeek = Calendar.MONDAY;
 

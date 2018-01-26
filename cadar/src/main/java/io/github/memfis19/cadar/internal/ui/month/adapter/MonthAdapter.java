@@ -215,7 +215,7 @@ public class MonthAdapter extends PagerAdapter implements OnDayChangeListener,
         int month = iterator.get(Calendar.MONTH);
         int lastDay = iterator.getActualMaximum(Calendar.DATE);
 
-        iterator.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+        iterator.set(Calendar.DAY_OF_WEEK, this.monthCalendarConfiguration.getFirstDayOfWeek());
         if (iterator.get(Calendar.MONTH) == month && iterator.get(Calendar.DATE) > 1) {
             iterator.add(Calendar.DATE, -7);
         }

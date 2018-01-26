@@ -108,6 +108,7 @@ public class MonthCalendar extends LinearLayout implements ViewPager.OnPageChang
 
     @Override
     public void prepareCalendar(final MonthCalendarConfiguration monthCalendarConfiguration) {
+        //prepare Calendar
         this.monthCalendarConfiguration = monthCalendarConfiguration;
 
         backgroundThread = new HandlerThread(TAG, Process.THREAD_PRIORITY_BACKGROUND);
@@ -131,8 +132,10 @@ public class MonthCalendar extends LinearLayout implements ViewPager.OnPageChang
 
                 int pos = monthCalendarConfiguration.getFirstDayOfWeek();
 
-                for (int i = pos; i < pos + 7; ++i) {
-                    initHeaderItem(monthHeaderView, i);
+                if (monthCalendarConfiguration.getWeekTitleLayoutId() != MonthCalendarConfiguration.NONE) {
+                    for (int i = pos; i < pos + 7; ++i) {
+                        initHeaderItem(monthHeaderView, i);
+                    }
                 }
 
                 monthAdapter = new MonthAdapter(monthCalendarConfiguration.getContext(), monthHandlerThread,
