@@ -108,7 +108,6 @@ public class MonthCalendar extends LinearLayout implements ViewPager.OnPageChang
 
     @Override
     public void prepareCalendar(final MonthCalendarConfiguration monthCalendarConfiguration) {
-        //prepare Calendar
         this.monthCalendarConfiguration = monthCalendarConfiguration;
 
         backgroundThread = new HandlerThread(TAG, Process.THREAD_PRIORITY_BACKGROUND);
